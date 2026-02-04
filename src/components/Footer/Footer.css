@@ -1,0 +1,27 @@
+.footer {
+    margin-top: 100px;
+}
+
+.footer__flag {
+    filter: brightness(0) invert(1);
+    border-radius: 8px;
+}
+
+.footer__logo-text {
+    font-size: 4rem;
+    letter-spacing: 0.05em;
+}
+
+.footer__input {
+    min-width: 200px;
+}
+
+.footer__submit {
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .footer__logo-text {
+        font-size: 2rem;
+    }
+}

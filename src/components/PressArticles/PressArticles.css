@@ -1,0 +1,24 @@
+.press-article__item {
+    overflow: hidden;
+    background-color: #a23952;
+}
+
+.press-article__figure {
+    overflow: hidden;
+    border-radius: 8px;
+    
+}
+
+.press-article__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.press-article__item:hover .press-article__image {
+    transform: scale(1.05);
+}

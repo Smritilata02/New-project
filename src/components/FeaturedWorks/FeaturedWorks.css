@@ -1,0 +1,31 @@
+.featured-work__item {
+    overflow: hidden;
+    background-color: #dfe0df;
+}
+
+.featured-work__figure {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.featured-work__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.featured-work__item:hover .featured-work__media {
+    transform: scale(1.05);
+}
+
+.featured-work__hover-indicator {
+    transition: opacity 0.3s ease;
+}
+
+.featured-work__item:hover .featured-work__hover-indicator {
+    opacity: 1;
+}
