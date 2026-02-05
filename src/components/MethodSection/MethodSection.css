@@ -1,14 +1,14 @@
 .method-section__marquee {
     width: 100vw;
     overflow: hidden;
-    background: #402e32;
+    background: #FFCC00;
 
 }
 
 .method-section__marquee-track {
     display: flex;
     width: max-content;
-      background-color: #402e32;
+    background-color: #FFCC00;
 }
 
 .method-section__marquee--right .method-section__marquee-track {
@@ -56,5 +56,14 @@
 .method-section__video-container {
     border-radius: 8px;
     overflow: hidden;
-  
+
+}
+
+.method-section__title {
+    color: #a78bfa !important;
+}
+
+.method-section__marquee-text {
+    color: #6d28d9 !important;
+    /* Violet-700 to match section bg and contrast with yellow */
 }

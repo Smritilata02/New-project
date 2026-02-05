@@ -18,26 +18,17 @@ const MethodSection = () => {
     )
 
     return (
-        <section id="method" className="pb-200 s:pb-300 overflow-hidden relative bg-gray-bg">
+        <section
+            id="method"
+            className="pt-120 s:pt-160 pb-120 s:pb-160 overflow-hidden relative bg-violet-700 text-white"
+        >
             <div className="h1 uppercase">
                 {/* First marquee row - right direction */}
                 <div className="method-section__marquee method-section__marquee--right">
                     <div className="method-section__marquee-track">
                         {[...Array(8)].map((_, i) => (
                             <div key={i} className="flex justify-start items-center">
-                                <p className="whitespace-nowrap">METHOD</p>
-                                <StarIcon />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Second marquee row - left direction */}
-                <div className="method-section__marquee method-section__marquee--left">
-                    <div className="method-section__marquee-track">
-                        {[...Array(8)].map((_, i) => (
-                            <div key={i} className="flex justify-start items-center">
-                                <p className="whitespace-nowrap">METHOD</p>
+                                <p className="whitespace-nowrap method-section__marquee-text font-bold">METHOD</p>
                                 <StarIcon />
                             </div>
                         ))}
@@ -47,7 +38,8 @@ const MethodSection = () => {
 
             <div className="relative site-grid items-center mt-90 s:-mt-85 z-2">
                 <figure
-                    className="s:col-start-7 col-start-1 col-span-6 relative media-fill bg-gray mt-100 s:mt-0 method-section__video-container"
+                    className="s:col-start-7 col-start-1 col-span-5 relative media-fill bg-gray method-section__video-container mt-100 s:mt-160"
+
                     style={{ aspectRatio: 0.75 }}
                 >
                     <video
@@ -62,17 +54,17 @@ const MethodSection = () => {
                 </figure>
 
                 <div className="s:col-start-2 s:col-span-4 order-first col-start-1 col-span-6 smax:order-first s:pt-25">
-                    <h2 className="h3 mb-40 s:mb-50">
+                    <h2 className="h3 mb-40 s:mb-50 method-section__title">
                         Turning bold vision into brand impact.
                     </h2>
-                    <div className="txt --less-margin s:pr-100">
+                    <div className="txt --less-margin s:pr-100 text-gray-300">
                         <p>
                             Brand transformations fall short because they stop at the surface—logos, taglines, campaigns.
                             We go deeper, aligning your business around an Idea Worth Rallying Around®. The result?
                             A brand your people will champion and your audience will love.
                         </p>
                     </div>
-                    <a href="#method" className="uline-double mt-70" role="button">
+                    <a href="#method" className="uline-double mt-70 text-white border-white hover:text-yellow-400 hover:border-yellow-400 transition-colors" role="button">
                         Learn the Thoughtshop® method
                     </a>
                 </div>
