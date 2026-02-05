@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #FFCC00;
+    overflow-x: hidden;
+}
+
+.marquee-container {
+    width: 100%;
+    background: #FFCC00;
+    overflow: hidden;
+    padding: 35px 0;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+    animation: scroll 18s linear infinite;
+}
+
+.marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-right: 80px;
+    white-space: nowrap;
+
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #000;
+}
+
+
+.marquee-item img {
+    width: 100px;
+    height: 100px;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
+
+/* Showcase component styles */
+/* ===== SHOWCASE SECTION ===== */
