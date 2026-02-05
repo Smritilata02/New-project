@@ -19,9 +19,10 @@ const Footer = () => {
     return (
         <footer id="contact" className="footer bg-black overflow-hidden text-white">
             <div className="relative pt-24 s:pt-80 pb-40 s:pb-40">
-                
 
                 <div className="site-grid gap-y-40 s:gap-y-0 s:pt-50 pb-60 s:pb-80">
+
+                    {/* Company */}
                     <div className="col-span-3 s:col-span-2">
                         <p className="small-title">Company</p>
                         <ul className="flex flex-col items-start mt-22 text-gray-2">
@@ -38,6 +39,7 @@ const Footer = () => {
                         </ul>
                     </div>
 
+                    {/* Social */}
                     <div className="col-span-3 s:col-span-2">
                         <p className="small-title">Social</p>
                         <ul className="flex flex-col items-start mt-22 text-gray-2">
@@ -54,6 +56,7 @@ const Footer = () => {
                         </ul>
                     </div>
 
+                    {/* Contact */}
                     <div className="col-span-6 s:col-span-4">
                         <p className="small-title">Contact</p>
                         <div className="mt-22 text-gray-2">
@@ -71,8 +74,18 @@ const Footer = () => {
                         </div>
                     </div>
 
+                    {/* Newsletter + Logo */}
                     <div className="col-span-6 s:col-span-4">
+
+                        {/* Logo from public folder */}
+                        <img
+                            src="/logo.jfif"
+                            alt="Company Logo"
+                            className="footer__logo mb-20"
+                        />
+
                         <p className="small-title">Newsletter</p>
+
                         <form className="mt-22">
                             <div className="flex gap-10">
                                 <input
@@ -88,10 +101,10 @@ const Footer = () => {
                                 </button>
                             </div>
                         </form>
-                    </div>
-                </div>
 
-               
+                    </div>
+
+                </div>
             </div>
         </footer>
     )
