@@ -1,5 +1,5 @@
 .testimonials-section {
-  background: #ffffff;
+  background: #e9cdfb;
   padding: 96px 80px;
   position: relative;
 }
@@ -34,7 +34,7 @@
   flex-shrink: 0;
   width: calc(50% - 20px); /* 2 cards per screen */
   min-height: 300px;
-  background: #f1f1f1;
+  background: #fdf9cd;
   border-radius: 24px;
   padding: 48px;
   display: flex;
