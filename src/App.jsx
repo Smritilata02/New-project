@@ -5,7 +5,7 @@ import Hero from './components/Hero/Hero'
 import ClientMarquee from './components/ClientMarquee/ClientMarquee'
 import FeaturedWorks from './components/FeaturedWorks/FeaturedWorks'
 import PressArticles from './components/PressArticles/PressArticles'
-
+import Testimonials from './components/Testimonials/Testimonials'
 import MethodSection from './components/MethodSection/MethodSection'
 
 import Footer from './components/Footer/Footer'
@@ -22,7 +22,7 @@ function App() {
             <ClientMarquee />
             <FeaturedWorks />
             <PressArticles />
-            
+            <Testimonials />
             <MethodSection />
            
           </div>
