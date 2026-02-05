@@ -31,7 +31,7 @@ const Hero = () => {
                         </div>
                     </h1>
                     <p className="relative space-letter s:absolute s:top-1/2 s:left-[-2em] s:-translate-y-1/3 text-20 s:text-[2.1em] font-sans s:w-[21em] s:pb-[3em] mt-50 s:mt-0 js-t-lines">
-                        Thoughtshop® is the leading creative branding agency for positioning, scaling, and reinventing companies in the tech and innovation space.
+                        Thoughtshop is the leading creative branding agency for positioning, scaling, and reinventing companies in the tech and innovation space.
                     </p>
                 </div>
             </div>

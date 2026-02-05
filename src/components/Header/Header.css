@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: rgba(233, 220, 239, 0.92);
+  background: #fc0;
   backdrop-filter: blur(8px);
   padding: 1.25rem 3rem;
   z-index: 10000;
@@ -22,7 +22,7 @@
 
 /* Logo */
 .header__logo {
-  height: 46px;
+  height: 70px;
   transition: transform 0.3s ease;
 }
 
