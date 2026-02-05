@@ -33,10 +33,11 @@ const FeaturedWorks = () => {
     ]
 
     return (
-        <section id="work" className="relative bg-gray-bg mb-200 s:mb-300">
+        <section id="work" className="relative bg-black mb-200 s:mb-300">
             <div className="site-max s:flex justify-between s:items-end s:flex-row">
-                <h2 className="h2 smax:text-50 uppercase max-w-[100rem] bg-yellow-bg">
-                    Selected<br />work
+                <h2 className="h2 smax:text-50 uppercase max-w-[100rem]">
+                    <span style={{ color: '#FFD700' }}>Selected</span><br />
+                    <span style={{ color: '#800080' }}>work</span>
                 </h2>
                 <a href="#work" className="uline-double mt-40 s:mt-0" role="button">
                     See all case studies →
