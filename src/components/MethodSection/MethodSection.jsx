@@ -23,8 +23,8 @@ const MethodSection = () => {
             className="pt-120 s:pt-160 pb-120 s:pb-160 overflow-hidden relative bg-violet-700 text-white"
         >
             <div className="h1 uppercase">
-                {/* First marquee row - right direction */}
-                <div className="method-section__marquee method-section__marquee--right">
+                {/* First marquee row - left direction */}
+                <div className="method-section__marquee method-section__marquee--left">
                     <div className="method-section__marquee-track">
                         {[...Array(8)].map((_, i) => (
                             <div key={i} className="flex justify-start items-center">
