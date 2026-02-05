@@ -28,7 +28,7 @@ const MethodSection = () => {
                     <div className="method-section__marquee-track">
                         {[...Array(8)].map((_, i) => (
                             <div key={i} className="flex justify-start items-center">
-                                <p className="whitespace-nowrap text-black font-bold">METHOD</p>
+                                <p className="whitespace-nowrap method-section__marquee-text font-bold">METHOD</p>
                                 <StarIcon />
                             </div>
                         ))}
@@ -54,7 +54,7 @@ const MethodSection = () => {
                 </figure>
 
                 <div className="s:col-start-2 s:col-span-4 order-first col-start-1 col-span-6 smax:order-first s:pt-25">
-                    <h2 className="h3 mb-40 s:mb-50">
+                    <h2 className="h3 mb-40 s:mb-50 method-section__title">
                         Turning bold vision into brand impact.
                     </h2>
                     <div className="txt --less-margin s:pr-100 text-gray-300">

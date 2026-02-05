@@ -58,3 +58,12 @@
     overflow: hidden;
 
 }
+
+.method-section__title {
+    color: #a78bfa !important;
+}
+
+.method-section__marquee-text {
+    color: #6d28d9 !important;
+    /* Violet-700 to match section bg and contrast with yellow */
+}
