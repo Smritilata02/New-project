@@ -3,6 +3,7 @@ import "./Header.css";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   const centerLinks = [
     { href: "#services", label: "Services" },
@@ -30,10 +31,31 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* RIGHT: Contact */}
-        <a href="#contact" className="header__contact">
-          Contact
-        </a>
+        {/* RIGHT: Contact + Menu */}
+        <div className="header__actions">
+          <a href="#contact" className="header__contact">
+            Contact
+          </a>
+
+          {/* MENU BUTTON */}
+          <div className="header__menu-wrapper">
+            <button
+              className="header__menu-btn"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              Menu {isMenuOpen ?  "✕" : "☰"}
+            </button>
+
+            {/* MENU DROPDOWN */}
+            {isMenuOpen && (
+              <ul className="menu-dropdown">
+                <li><a href="#careers">Careers</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#case-studies">Case Studies</a></li>
+              </ul>
+            )}
+          </div>
+        </div>
 
         {/* Mobile Toggle */}
         <button

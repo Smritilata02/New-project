@@ -88,6 +88,42 @@
   transform: translateY(-1px);
 }
 
+.header__menu-btn {
+  text-decoration: none;
+  font-size: 2.1rem;
+  color: #8b5cf6;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  display: flex!important;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__menu:hover {
+  background: rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+
+
+/* Prevent wrapping */
+.header__contact,
+.header__menu-btn {
+  white-space: nowrap;
+}
+
+/* Menu wrapper must not break line */
+.header__menu-wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+
+
+
 
 /* Mobile toggle */
 .header__mobile-toggle {
