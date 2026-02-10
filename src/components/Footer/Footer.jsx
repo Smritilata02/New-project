@@ -69,7 +69,7 @@ const Footer = () => {
                                 </a>
                             </p>
                             <p className="text-sm opacity-70 mt-40">
-                                Ideas Worth Rallying Around®
+                                Ideas Worth Rallying Around
                             </p>
                         </div>
                     </div>

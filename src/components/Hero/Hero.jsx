@@ -125,7 +125,7 @@ const Hero = () => {
 
       {/* IDEAS WORTH */}
       <div className="home-title">
-        Ideas Worth
+        Ideas Wor<img src="src/assets/T.png" alt="T" className="logo-t" />h
       </div>
 
     </div>
@@ -159,7 +159,7 @@ const Hero = () => {
 
                     <p
                         className="relative space-letter s:absolute s:top-1/2 s:left-[-2em] s:-translate-y-1/3 text-20 s:text-[2.1em] font-sans s:w-[21em] s:pb-[3em] mt-50 s:mt-0 js-t-lines">
-                        Thoughtshop® is the leading global branding agency for positioning, scaling, and reinventing companies
+                        <img src="src/assets/T.png" alt="T" className="logo-t" />houghtshop is the leading global branding agency for positioning, scaling, and reinventing companies
                         in the tech and innovation space.
                     </p>
                 </div>
@@ -197,7 +197,7 @@ const Hero = () => {
             <div className="site-max flex items-end pb-90 s:pb-175 pt-200 s:pt-0 s:h-full-screen js-hh-end">
                 <h2 className="text-64 s:text-[14.5rem] uppercase !leading-[1.1] w-full font-disp font-medium">
                     <span className="w-full s:w-auto js-hh-offset-ref">
-                        LET'S
+                        LE <img src="src/assets/T.png" alt="T" className="logo-t" />'S
                     </span>
                     <figure className="hidden s:inline-flex relative h-[14.6rem] w-[22rem] s:w-[34rem] my-15 s:my-0">
                         <div

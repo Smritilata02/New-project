@@ -3,7 +3,7 @@ import "./Header.css";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  
 
   const centerLinks = [
     { href: "#services", label: "Services" },
@@ -37,35 +37,14 @@ const Header = () => {
             Contact
           </a>
 
-          {/* MENU BUTTON */}
-          <div className="header__menu-wrapper">
-            <button
-              className="header__menu-btn"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              Menu {isMenuOpen ?  "✕" : "☰"}
-            </button>
+         
+           
 
-            {/* MENU DROPDOWN */}
-            {isMenuOpen && (
-              <ul className="menu-dropdown">
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#case-studies">Case Studies</a></li>
-              </ul>
-            )}
-          </div>
+           
+          
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="header__mobile-toggle"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle mobile menu"
-        >
-          {isMobileMenuOpen ? "✕" : "☰"}
-        </button>
-
+        
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="header__mobile-menu">

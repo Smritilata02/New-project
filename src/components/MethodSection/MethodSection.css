@@ -67,3 +67,44 @@
     color: #6d28d9 !important;
     /* Violet-700 to match section bg and contrast with yellow */
 }
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.inline-icon {
+  transform: translateY(-0.08em);
+  color: black;
+}
+.rotate-icon {
+  animation: spin 3s linear infinite;
+  transform-origin: center;
+}
+.inline-icon {
+  height: 0.8em;
+  width: 0.8em;
+  margin: 0 0.25em; 
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-0.08em) rotate(0deg);
+}
+
+
+.method-border {
+  display: inline-flex;
+  align-items: center;
+  background-color: beige;
+  border: 2px solid currentColor;
+  padding: 0.15em 0.4em;
+  margin-right: 0.4em;
+
+  line-height: 1;
+}
+
+

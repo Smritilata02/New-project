@@ -95,7 +95,7 @@ const FeaturedWorks = () => {
         <section id="work" className="relative bg-black mb-200 s:mb-300">
             <div className="site-max s:flex justify-between s:items-end s:flex-row">
                 <h2 className="h2 smax:text-50 uppercase max-w-[100rem]">
-                    <span style={{ color: '#FFD700' }}>Selected</span>
+                    <span style={{ color: '#FFD700' }}>Selec<img src="src/assets/T.png" alt="T" className="logo-t" />ed</span>
                     <br />
                     <span style={{ color: '#800080' }}>work</span>
                 </h2>

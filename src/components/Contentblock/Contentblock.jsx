@@ -18,7 +18,7 @@ const ContentBlock = () => {
                     Great brands are more than famous names, they're Ideas Worth Rallying Around®.
                 </h2>
                 <div className="contentblock-desc">
-                    Thoughtshop® partners with innovative companies to create impactful, future-ready brands. We collaborate with visionary teams and design-led companies that require support in company positioning, category definition, and brand expression to unify their team, drive growth, and amplify brand influence in modern culture.
+                    Thoughtshop partners with innovative companies to create impactful, future-ready brands. We collaborate with visionary teams and design-led companies that require support in company positioning, category definition, and brand expression to unify their team, drive growth, and amplify brand influence in modern culture.
                 </div>
                 <div className="contentblock-purpose">
                     (CHOOSE YOUR PURPOSE)

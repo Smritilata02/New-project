@@ -78,7 +78,7 @@ export default function Testimonials() {
 
   return (
     <section className="testimonials-section">
-      <h2 className="testimonials-title">PRAISE FROM CLIENTS</h2>
+      <h2 className="testimonials-title">PRAISE FROM CLIEN<img src="src/assets/T.png" alt="T" className="logo-t" />S</h2>
 
       <div className="testimonials-stage">
         {visibleItems.map((item, i) => (

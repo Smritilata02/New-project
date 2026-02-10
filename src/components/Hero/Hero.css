@@ -16,10 +16,6 @@
     object-fit: cover;
     border-radius: 8px;
 }
-<<<<<<< HEAD
-
-
-=======
 .js-t-title-line::before,
 .js-t-title-line::after,
 .home-title::before,
@@ -31,4 +27,10 @@
     height: 12rem;
     padding-right: 3rem;
 }
->>>>>>> a7ce79e444d6e050762b992b56e67b06b34fb89d
+.logo-t {
+  height: 1em;              /* same height as text */
+  width: auto;
+  display: inline-block;
+  vertical-align: text-top; /* aligns like a capital letter */
+  transform: translateY(0.08em); /* fine baseline adjustment */
+}

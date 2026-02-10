@@ -1,4 +1,6 @@
 import './MethodSection.css'
+import { Camera } from "lucide-react";
+
 
 const MethodSection = () => {
     const StarIcon = () => (
@@ -28,8 +30,15 @@ const MethodSection = () => {
                     <div className="method-section__marquee-track">
                         {[...Array(8)].map((_, i) => (
                             <div key={i} className="flex justify-start items-center">
-                                <p className="whitespace-nowrap method-section__marquee-text font-bold">METHOD</p>
-                                <StarIcon />
+                                <p className="whitespace-nowrap method-section__marquee-text font-bold">
+                                <span className="method-border">ME<img src="src/assets/T.png" alt="T" className="logo-t"/>HOD</span></p>
+                                
+                                 <Camera className="inline-icon rotate-icon" />
+                               
+
+
+
+                                
                             </div>
                         ))}
                     </div>
@@ -65,7 +74,7 @@ const MethodSection = () => {
                         </p>
                     </div>
                     <a href="#method" className="uline-double mt-70 text-white border-white hover:text-yellow-400 hover:border-yellow-400 transition-colors" role="button">
-                        Learn the Thoughtshop® method
+                        Learn the Thoughtshop method
                     </a>
                 </div>
             </div>
