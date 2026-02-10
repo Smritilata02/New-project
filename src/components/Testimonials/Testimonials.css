@@ -2,48 +2,33 @@
   background: #e9cdfb;
   padding: 96px 80px;
   position: relative;
+  overflow: hidden;
 }
 
 .testimonials-title {
   font-size: 90px;
   font-weight: 500;
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 }
 
-/* Slider layout */
-.slider-wrapper {
-  position: relative;
-}
-
-.slider-viewport {
+/* Two-card grid (FIXED) */
+.testimonials-stage {
   max-width: 1180px;
   margin: 0 auto;
-  overflow: hidden;
-}
-
-.slider {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
 }
 
-/* Card */
 .testimonial-card {
-  flex-shrink: 0;
-  width: calc(50% - 20px); /* 2 cards per screen */
-  min-height: 300px;
   background: #fdf9cd;
   border-radius: 24px;
   padding: 48px;
-  display: flex;
-  flex-direction: column;
-  scroll-snap-align: start;
+  min-height: 300px;
 }
 
 .card-header {
-  min-height: 96px;
+  margin-bottom: 24px;
 }
 
 .name {
@@ -56,7 +41,6 @@
 }
 
 .quote {
-  margin-top: 16px;
   font-size: 17px;
   line-height: 1.6;
   color: #333;
@@ -65,43 +49,54 @@
 /* Arrows */
 .arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 55%;
   width: 56px;
   height: 56px;
   border-radius: 50%;
   background: #000;
   color: #fff;
-  font-size: 22px;
   border: none;
+  font-size: 22px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
 }
 
 .arrow.left {
-  left: -36px;
+  left: 40px;
 }
 
 .arrow.right {
-  right: -36px;
+  right: 40px;
 }
 
-/* Hide scrollbar */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* Cursor */
+.testimonial-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 999;
 }
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+/* Show cursor on hover */
+.testimonials-section:hover .testimonial-cursor {
+  opacity: 1;
 }
+
 
 /* Responsive */
 @media (max-width: 768px) {
-  .testimonial-card {
-    width: 100%;
+  .testimonials-stage {
+    grid-template-columns: 1fr;
   }
 
   .testimonials-title {

@@ -29,3 +29,21 @@
 .featured-work__item:hover .featured-work__hover-indicator {
     opacity: 1;
 }
+.featured-work__hover-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: white;
+    color: black;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 999;
+}

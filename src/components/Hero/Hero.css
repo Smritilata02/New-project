@@ -1,6 +1,7 @@
 .hero {
     padding-top: 20px;
-    background-color: #e9cdfb;
+    background-color: #eedbfa;
+    color: #481e7f;
 }
 
 .hero__video-section {
@@ -15,5 +16,19 @@
     object-fit: cover;
     border-radius: 8px;
 }
+<<<<<<< HEAD
 
 
+=======
+.js-t-title-line::before,
+.js-t-title-line::after,
+.home-title::before,
+.home-title::after {
+    content: none !important;
+}
+.hero .js-t-title-line svg {
+    width: 12rem;     /* increase as needed */
+    height: 12rem;
+    padding-right: 3rem;
+}
+>>>>>>> a7ce79e444d6e050762b992b56e67b06b34fb89d

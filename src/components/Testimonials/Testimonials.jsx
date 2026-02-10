@@ -1,14 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
-import "./Testimonials.css";
+import { useEffect, useRef, useState } from "react"
+import "./Testimonials.css"
 
 export default function Testimonials() {
-  const sliderRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [page, setPage] = useState(0)
 
-  const CARD_WIDTH = 550;
-  const GAP = 40;
-  const SCROLL_STEP = (CARD_WIDTH + GAP) * 2;
+  const cursorRef = useRef(null)
+  const mouse = useRef({ x: 0, y: 0 })
+  const pos = useRef({ x: 0, y: 0 })
 
   const testimonials = [
     {
@@ -24,84 +22,97 @@ export default function Testimonials() {
         "Thoughtshop sparked a trail of thought we had not explored, clarifying how our vision could translate into more ambitious, bold moves."
     },
     {
-      name: "Sarah Collins",
-      company: "Dropbox",
-      quote: "They helped us clarify our brand with confidence and precision."
-    },
-    {
       name: "Michael Tan",
       company: "Spotify",
-      quote: "Strategic, creative, and deeply thoughtful throughout the process."
+      quote:
+        "Strategic, creative, and deeply thoughtful throughout the process."
     },
     {
       name: "Emily Rose",
       company: "Airbnb",
-      quote: "Thoughtshop helped us unlock a new level of storytelling."
+      quote:
+        "Thoughtshop helped us unlock a new level of storytelling."
+    },
+    {
+      name: "Sarah Collins",
+      company: "Dropbox",
+      quote:
+        "They helped us clarify our brand with confidence and precision."
+    },
+    {
+      name: "Sarah Collins",
+      company: "Dropbox",
+      quote:
+        "They helped us clarify our brand with confidence and precision."
     }
-  ];
+  ]
 
-  const updateArrows = () => {
-    const el = sliderRef.current;
-    if (!el) return;
+  const totalPages = Math.ceil(testimonials.length / 2)
 
-    setCanScrollLeft(el.scrollLeft > 0);
-    setCanScrollRight(
-      el.scrollLeft + el.clientWidth < el.scrollWidth - 5
-    );
-  };
+  const visibleItems = testimonials.slice(page * 2, page * 2 + 2)
 
-  const scroll = (dir) => {
-    sliderRef.current.scrollBy({
-      left: dir === "right" ? SCROLL_STEP : -SCROLL_STEP,
-      behavior: "smooth"
-    });
-  };
-
+  // 🔵 Cursor animation
   useEffect(() => {
-    updateArrows();
-  }, []);
+    const cursor = cursorRef.current
+    if (!cursor) return
+
+    const speed = 0.15
+
+    const animate = () => {
+      pos.current.x += (mouse.current.x - pos.current.x) * speed
+      pos.current.y += (mouse.current.y - pos.current.y) * speed
+      cursor.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`
+      requestAnimationFrame(animate)
+    }
+
+    animate()
+
+    const move = (e) => {
+      mouse.current.x = e.clientX - 55
+      mouse.current.y = e.clientY - 55
+    }
+
+    window.addEventListener("mousemove", move)
+    return () => window.removeEventListener("mousemove", move)
+  }, [])
 
   return (
     <section className="testimonials-section">
       <h2 className="testimonials-title">PRAISE FROM CLIENTS</h2>
 
-      <div className="slider-wrapper">
-        <div className="slider-viewport">
-          <div
-            ref={sliderRef}
-            onScroll={updateArrows}
-            className="slider no-scrollbar"
-          >
-            {testimonials.map((item, i) => (
-              <div className="testimonial-card" key={i}>
-                <div className="card-header">
-                  <p className="name">{item.name}</p>
-                  <p className="company">{item.company}</p>
-                </div>
-                <p className="quote">{item.quote}</p>
-              </div>
-            ))}
+      <div className="testimonials-stage">
+        {visibleItems.map((item, i) => (
+          <div className="testimonial-card" key={i}>
+            <div className="card-header">
+              <p className="name">{item.name}</p>
+              <p className="company">{item.company}</p>
+            </div>
+            <p className="quote">{item.quote}</p>
           </div>
-        </div>
-
-        {canScrollLeft && (
-          <button
-            className="arrow left"
-            onClick={() => scroll("left")}
-          >
-            ←
-          </button>
-        )}
-
-        {canScrollRight && (
-          <button
-            className="arrow right"
-            onClick={() => scroll("right")}
-          >
-            →
-          </button>
-        )}
+        ))}
       </div>
+
+      {/* ⬅️➡️ Arrows */}
+      {page > 0 && (
+        <button
+          className="arrow left"
+          onClick={() => setPage(page - 1)}
+        >
+          ←
+        </button>
+      )}
+
+      {page < totalPages - 1 && (
+        <button
+          className="arrow right"
+          onClick={() => setPage(page + 1)}
+        >
+          →
+        </button>
+      )}
+
+      {/* ⚪ Hover Cursor */}
+      <div ref={cursorRef} className="testimonial-cursor">→</div>
     </section>
-  );
+  )
 }
