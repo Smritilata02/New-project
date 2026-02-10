@@ -16,3 +16,14 @@
     object-fit: cover;
     border-radius: 8px;
 }
+.js-t-title-line::before,
+.js-t-title-line::after,
+.home-title::before,
+.home-title::after {
+    content: none !important;
+}
+.hero .js-t-title-line svg {
+    width: 12rem;     /* increase as needed */
+    height: 12rem;
+    padding-right: 3rem;
+}

@@ -99,36 +99,64 @@ const Hero = () => {
         <div className="hero relative">
             <div className="site-max relative flex items-center justify-center s:h-almost-screen pt-140 s:pt-80">
                 <div className="relative s:text-9 mh-m:text-10">
-                    <h1 className="text-64 s:text-[16em] leading-none font-disp uppercase"
-                        aria-label="Ideas worth rallying about">
-                        <div className="overflow-hidden">
-                            <div className="js-t-title-line home-title">Ideas Worth</div>
-                        </div>
-                        <div className="overflow-hidden mr-[-.25em]">
-                            <div className="s:text-right js-t-title-line">
-                                Rallying
-                            </div>
-                        </div>
-                        <div className="flex justify-between justify-center align-middle overflow-hidden s:-ml-40">
-                            <div className="w-[10rem] h-[15rem] hidden s:block js-t-title-line">
-                                <svg className="size-full" viewBox="0 0 90 112" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                    xmlnsXlink="http://www.w3.org/1999/xlink">
-                                    <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                                        <g id="Home-desktop-hero-Copy-55" transform="translate(-87.000000, -582.000000)" fill="#000000"
-                                            fillRule="nonzero">
-                                            <g id="↓" transform="translate(87.400000, 582.840000)">
-                                                <polygon id="Path"
-                                                    points="89.28 69.28 80.32 59.68 51.2 87.2 51.2 0 38.08 0 38.08 87.2 8.96 59.68 0 69.28 44.64 110.56">
-                                                </polygon>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg>
-                            </div>
-                            <div className="s:text-center js-t-title-line home-hero-tm">Around</div>
-                            <div className="hidden s:block"></div>
-                        </div>
-                    </h1>
+                    <h1
+  className="text-64 s:text-[16em] leading-none font-disp uppercase"
+  aria-label="Ideas worth rallying about"
+>
+  {/* Line 1 */}
+  <div className="overflow-hidden">
+    <div className="flex items-center js-t-title-line">
+
+      {/* Camera instead of spokes */}
+      <div className="w-[10rem] h-[10rem] flex items-center justify-center mr-10">
+        <svg
+          className="w-[6rem] h-[6rem]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M23 19V7a2 2 0 0 0-2-2h-3l-2-2H8L6 5H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+      </div>
+
+      {/* IDEAS WORTH */}
+      <div className="home-title">
+        Ideas Worth
+      </div>
+
+    </div>
+  </div>
+
+  {/* Line 2 */}
+  <div className="overflow-hidden mr-[-.25em]">
+    <div className="s:text-right js-t-title-line">
+      Rallying
+    </div>
+  </div>
+
+  {/* Line 3 */}
+  <div className="flex justify-between justify-center align-middle overflow-hidden s:-ml-40">
+    <div className="w-[10rem] h-[15rem] hidden s:block js-t-title-line">
+      <svg className="size-full" viewBox="0 0 90 112" version="1.1">
+        <polygon
+          points="89.28 69.28 80.32 59.68 51.2 87.2 51.2 0 38.08 0 38.08 87.2 8.96 59.68 0 69.28 44.64 110.56"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+
+    <div className="s:text-center js-t-title-line home-hero-tm">
+      Around
+    </div>
+
+    <div className="hidden s:block"></div>
+  </div>
+</h1>
+
                     <p
                         className="relative space-letter s:absolute s:top-1/2 s:left-[-2em] s:-translate-y-1/3 text-20 s:text-[2.1em] font-sans s:w-[21em] s:pb-[3em] mt-50 s:mt-0 js-t-lines">
                         Thoughtshop® is the leading global branding agency for positioning, scaling, and reinventing companies
