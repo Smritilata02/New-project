@@ -1,4 +1,10 @@
-@charset "UTF-8";input {
+
+@charset "UTF-8";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
     background-color: transparent;
     border: 0;
     border-radius: 0;
