@@ -56,7 +56,7 @@ export default function Testimonials() {
     const cursor = cursorRef.current
     if (!cursor) return
 
-    const speed = 0.003
+    const speed = 0.12
 
     const animate = () => {
       pos.current.x += (mouse.current.x - pos.current.x) * speed
