@@ -40,80 +40,47 @@ const Icons = {
 const useScrollAnimation = () => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-
     const checkVisibility = () => {
       const rect = element.getBoundingClientRect();
-      if (rect.top < window.innerHeight + 500) {
-        setIsVisible(true);
-        return true;
-      }
+      if (rect.top < window.innerHeight + 500) { setIsVisible(true); return true; }
       return false;
     };
-
     if (checkVisibility()) return;
-
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(() => {
-          if (checkVisibility()) {
-            window.removeEventListener('scroll', onScroll);
-          }
-          ticking = false;
-        });
+        requestAnimationFrame(() => { if (checkVisibility()) window.removeEventListener('scroll', onScroll); ticking = false; });
         ticking = true;
       }
     };
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-          window.removeEventListener('scroll', onScroll);
-        }
-      },
-      { threshold: 0, rootMargin: '500px 0px 500px 0px' }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); window.removeEventListener('scroll', onScroll); }
+    }, { threshold: 0, rootMargin: '500px 0px 500px 0px' });
     observer.observe(element);
     window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', onScroll);
-    };
+    return () => { observer.disconnect(); window.removeEventListener('scroll', onScroll); };
   }, []);
-
   return [ref, isVisible];
 };
 
-/* ================= POP ITEM COMPONENT ================= */
+/* ================= POP ITEM ================= */
 const PopItem = ({ children, delay = 0, className = '', type = 'pop' }) => {
   const [ref, isVisible] = useScrollAnimation();
-
   return (
-    <div
-      ref={ref}
-      className={`pop-animate ${type} ${isVisible ? 'is-visible' : ''} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={`pop-animate ${type} ${isVisible ? 'is-visible' : ''} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );
 };
 
-/* ================= SMOOTH SCROLL HANDLER ================= */
+/* ================= SMOOTH SCROLL ================= */
 const scrollToSection = (e, sectionId) => {
   e.preventDefault();
   const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
 /* ================= INTERACTIVE GRADIENT BLOBS ================= */
@@ -124,7 +91,6 @@ const InteractiveGradients = () => {
   const animationRef = useRef();
   const targetRef = useRef({ x: 0.5, y: 0.5 });
   const currentRef = useRef({ x: 0.5, y: 0.5 });
-
   const blobs = [
     { id: 'yellow-1', color: 'yellow', size: 500, speed: 0.08, offset: { x: 0, y: 0 }, intensity: 1 },
     { id: 'yellow-2', color: 'yellow', size: 350, speed: 0.05, offset: { x: 200, y: 100 }, intensity: 0.7 },
@@ -133,75 +99,25 @@ const InteractiveGradients = () => {
     { id: 'grey-1', color: 'grey', size: 400, speed: 0.04, offset: { x: 50, y: 50 }, intensity: 0.8 },
     { id: 'grey-2', color: 'grey', size: 280, speed: 0.09, offset: { x: -100, y: -100 }, intensity: 0.5 },
   ];
-
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        targetRef.current = {
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height
-        };
-      }
-    };
-
+    const handleMouseMove = (e) => { if (containerRef.current) { const rect = containerRef.current.getBoundingClientRect(); targetRef.current = { x: (e.clientX - rect.left) / rect.width, y: (e.clientY - rect.top) / rect.height }; } };
     const handleMouseEnter = () => setIsHovering(true);
-    const handleMouseLeave = () => {
-      setIsHovering(false);
-      targetRef.current = { x: 0.5, y: 0.5 };
-    };
-
+    const handleMouseLeave = () => { setIsHovering(false); targetRef.current = { x: 0.5, y: 0.5 }; };
     const container = containerRef.current;
-    if (container) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('mouseenter', handleMouseEnter);
-      container.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    const animate = () => {
-      const lerp = (start, end, factor) => start + (end - start) * factor;
-      currentRef.current.x = lerp(currentRef.current.x, targetRef.current.x, 0.05);
-      currentRef.current.y = lerp(currentRef.current.y, targetRef.current.y, 0.05);
-      setMouse({ ...currentRef.current });
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
+    if (container) { container.addEventListener('mousemove', handleMouseMove); container.addEventListener('mouseenter', handleMouseEnter); container.addEventListener('mouseleave', handleMouseLeave); }
+    const animate = () => { const lerp = (s, e, f) => s + (e - s) * f; currentRef.current.x = lerp(currentRef.current.x, targetRef.current.x, 0.05); currentRef.current.y = lerp(currentRef.current.y, targetRef.current.y, 0.05); setMouse({ ...currentRef.current }); animationRef.current = requestAnimationFrame(animate); };
     animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (container) {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseenter', handleMouseEnter);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      }
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
+    return () => { if (container) { container.removeEventListener('mousemove', handleMouseMove); container.removeEventListener('mouseenter', handleMouseEnter); container.removeEventListener('mouseleave', handleMouseLeave); } if (animationRef.current) cancelAnimationFrame(animationRef.current); };
   }, []);
-
   const getBlobStyle = (blob, index) => {
-    const baseX = 50 + blob.offset.x / 10;
-    const baseY = 50 + blob.offset.y / 10;
-    const moveX = (mouse.x - 0.5) * 100 * blob.speed * blob.intensity * 3;
-    const moveY = (mouse.y - 0.5) * 100 * blob.speed * blob.intensity * 3;
-    const time = Date.now() / 1000;
-    const waveX = Math.sin(time * 0.5 + index) * 20 * blob.intensity;
-    const waveY = Math.cos(time * 0.3 + index * 0.7) * 20 * blob.intensity;
-
-    return {
-      left: `calc(${baseX}% + ${moveX + waveX}px)`,
-      top: `calc(${baseY}% + ${moveY + waveY}px)`,
-      width: blob.size,
-      height: blob.size,
-      transform: `translate(-50%, -50%) scale(${isHovering ? 1 + blob.intensity * 0.2 : 1})`,
-      opacity: isHovering ? 0.6 + blob.intensity * 0.15 : 0.4,
-    };
+    const baseX = 50 + blob.offset.x / 10; const baseY = 50 + blob.offset.y / 10;
+    const moveX = (mouse.x - 0.5) * 100 * blob.speed * blob.intensity * 3; const moveY = (mouse.y - 0.5) * 100 * blob.speed * blob.intensity * 3;
+    const time = Date.now() / 1000; const waveX = Math.sin(time * 0.5 + index) * 20 * blob.intensity; const waveY = Math.cos(time * 0.3 + index * 0.7) * 20 * blob.intensity;
+    return { left: `calc(${baseX}% + ${moveX + waveX}px)`, top: `calc(${baseY}% + ${moveY + waveY}px)`, width: blob.size, height: blob.size, transform: `translate(-50%, -50%) scale(${isHovering ? 1 + blob.intensity * 0.2 : 1})`, opacity: isHovering ? 0.6 + blob.intensity * 0.15 : 0.4 };
   };
-
   return (
     <div className="interactive-gradients" ref={containerRef} aria-hidden="true">
-      {blobs.map((blob, index) => (
-        <div key={blob.id} className={`interactive-blob blob-${blob.color}`} style={getBlobStyle(blob, index)} />
-      ))}
+      {blobs.map((blob, index) => (<div key={blob.id} className={`interactive-blob blob-${blob.color}`} style={getBlobStyle(blob, index)} />))}
       <div className="cursor-glow" style={{ left: `${mouse.x * 100}%`, top: `${mouse.y * 100}%`, opacity: isHovering ? 0.8 : 0 }} />
     </div>
   );
@@ -210,15 +126,7 @@ const InteractiveGradients = () => {
 /* ================= GRADIENT BACKGROUND ================= */
 const GradientBackground = () => (
   <div className="gradient-bg" aria-hidden="true">
-    <div className="base-gradient" />
-    <div className="gradient-orb orb-yellow-1" />
-    <div className="gradient-orb orb-yellow-2" />
-    <div className="gradient-orb orb-purple-1" />
-    <div className="gradient-orb orb-purple-2" />
-    <div className="gradient-orb orb-grey-1" />
-    <div className="mesh-gradient" />
-    <div className="noise-texture" />
-    <div className="vignette" />
+    <div className="base-gradient" /><div className="gradient-orb orb-yellow-1" /><div className="gradient-orb orb-yellow-2" /><div className="gradient-orb orb-purple-1" /><div className="gradient-orb orb-purple-2" /><div className="gradient-orb orb-grey-1" /><div className="mesh-gradient" /><div className="noise-texture" /><div className="vignette" />
   </div>
 );
 
@@ -226,96 +134,44 @@ const GradientBackground = () => (
 const AnimatedShapes = () => (
   <div className="animated-shapes" aria-hidden="true">
     <svg className="shape-layer floating-shapes" viewBox="0 0 1000 800">
-      <polygon points="100,50 130,65 130,95 100,110 70,95 70,65" className="float-hex fh-1"/>
-      <polygon points="850,120 880,135 880,165 850,180 820,165 820,135" className="float-hex fh-2"/>
-      <polygon points="200,650 230,665 230,695 200,710 170,695 170,665" className="float-hex fh-3"/>
-      <polygon points="750,550 780,565 780,595 750,610 720,595 720,565" className="float-hex fh-4"/>
-      <circle cx="150" cy="300" r="25" className="float-circle fc-1"/>
-      <circle cx="900" cy="400" r="18" className="float-circle fc-2"/>
-      <circle cx="50" cy="600" r="30" className="float-circle fc-3"/>
-      <circle cx="800" cy="700" r="22" className="float-circle fc-4"/>
-      <polygon points="500,80 530,130 470,130" className="float-tri ft-1"/>
-      <polygon points="950,300 980,350 920,350" className="float-tri ft-2"/>
-      <polygon points="80,450 110,500 50,500" className="float-tri ft-3"/>
-      <rect x="600" y="150" width="40" height="40" className="float-square fs-1"/>
-      <rect x="300" y="500" width="35" height="35" className="float-square fs-2"/>
-      <rect x="700" y="380" width="30" height="30" className="float-diamond fd-1"/>
-      <rect x="180" y="200" width="25" height="25" className="float-diamond fd-2"/>
+      <polygon points="100,50 130,65 130,95 100,110 70,95 70,65" className="float-hex fh-1"/><polygon points="850,120 880,135 880,165 850,180 820,165 820,135" className="float-hex fh-2"/><polygon points="200,650 230,665 230,695 200,710 170,695 170,665" className="float-hex fh-3"/><polygon points="750,550 780,565 780,595 750,610 720,595 720,565" className="float-hex fh-4"/>
+      <circle cx="150" cy="300" r="25" className="float-circle fc-1"/><circle cx="900" cy="400" r="18" className="float-circle fc-2"/><circle cx="50" cy="600" r="30" className="float-circle fc-3"/><circle cx="800" cy="700" r="22" className="float-circle fc-4"/>
+      <polygon points="500,80 530,130 470,130" className="float-tri ft-1"/><polygon points="950,300 980,350 920,350" className="float-tri ft-2"/><polygon points="80,450 110,500 50,500" className="float-tri ft-3"/>
+      <rect x="600" y="150" width="40" height="40" className="float-square fs-1"/><rect x="300" y="500" width="35" height="35" className="float-square fs-2"/>
+      <rect x="700" y="380" width="30" height="30" className="float-diamond fd-1"/><rect x="180" y="200" width="25" height="25" className="float-diamond fd-2"/>
     </svg>
-
     <svg className="shape-layer morph-blob-layer" viewBox="0 0 400 400">
-      <defs>
-        <linearGradient id="morphGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.1"/>
-          <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.08"/>
-          <stop offset="100%" stopColor="#6b7280" stopOpacity="0.05"/>
-        </linearGradient>
-      </defs>
-      <path className="morph-blob" fill="url(#morphGrad)">
-        <animate attributeName="d" dur="25s" repeatCount="indefinite"
-          values="M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50;M200,80 C260,40 380,100 360,180 C380,280 300,380 200,360 C100,380 30,280 50,180 C20,100 140,40 200,80;M180,50 C300,30 370,140 340,220 C370,320 260,370 180,350 C80,370 20,280 60,180 C20,80 100,30 180,50;M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50"/>
-      </path>
+      <defs><linearGradient id="morphGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24" stopOpacity="0.1"/><stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.08"/><stop offset="100%" stopColor="#6b7280" stopOpacity="0.05"/></linearGradient></defs>
+      <path className="morph-blob" fill="url(#morphGrad)"><animate attributeName="d" dur="25s" repeatCount="indefinite" values="M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50;M200,80 C260,40 380,100 360,180 C380,280 300,380 200,360 C100,380 30,280 50,180 C20,100 140,40 200,80;M180,50 C300,30 370,140 340,220 C370,320 260,370 180,350 C80,370 20,280 60,180 C20,80 100,30 180,50;M200,50 C280,50 350,120 350,200 C350,280 280,350 200,350 C120,350 50,280 50,200 C50,120 120,50 200,50"/></path>
     </svg>
-
     <svg className="shape-layer rotating-rings" viewBox="0 0 300 300">
-      <circle cx="150" cy="150" r="120" className="ring ring-1"/>
-      <circle cx="150" cy="150" r="100" className="ring ring-2"/>
-      <circle cx="150" cy="150" r="80" className="ring ring-3"/>
-      <circle cx="150" cy="150" r="60" className="ring ring-4"/>
-      <circle cx="150" cy="150" r="8" className="ring-center"/>
-      <circle cx="270" cy="150" r="4" className="ring-dot rd-1"/>
-      <circle cx="250" cy="150" r="3" className="ring-dot rd-2"/>
-      <circle cx="230" cy="150" r="3" className="ring-dot rd-3"/>
+      <circle cx="150" cy="150" r="120" className="ring ring-1"/><circle cx="150" cy="150" r="100" className="ring ring-2"/><circle cx="150" cy="150" r="80" className="ring ring-3"/><circle cx="150" cy="150" r="60" className="ring ring-4"/><circle cx="150" cy="150" r="8" className="ring-center"/><circle cx="270" cy="150" r="4" className="ring-dot rd-1"/><circle cx="250" cy="150" r="3" className="ring-dot rd-2"/><circle cx="230" cy="150" r="3" className="ring-dot rd-3"/>
     </svg>
-
     <svg className="shape-layer pulse-circles" viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="20" className="pulse-circle pc-1"/>
-      <circle cx="100" cy="100" r="40" className="pulse-circle pc-2"/>
-      <circle cx="100" cy="100" r="60" className="pulse-circle pc-3"/>
-      <circle cx="100" cy="100" r="80" className="pulse-circle pc-4"/>
-      <circle cx="100" cy="100" r="6" className="pulse-center"/>
+      <circle cx="100" cy="100" r="20" className="pulse-circle pc-1"/><circle cx="100" cy="100" r="40" className="pulse-circle pc-2"/><circle cx="100" cy="100" r="60" className="pulse-circle pc-3"/><circle cx="100" cy="100" r="80" className="pulse-circle pc-4"/><circle cx="100" cy="100" r="6" className="pulse-center"/>
     </svg>
-
     <svg className="shape-layer constellation-net" viewBox="0 0 600 500">
       <circle cx="100" cy="80" r="3" className="const-star cs-1"/><circle cx="180" cy="120" r="4" className="const-star cs-2"/><circle cx="250" cy="60" r="3" className="const-star cs-3"/><circle cx="350" cy="100" r="5" className="const-star cs-4"/><circle cx="450" cy="70" r="3" className="const-star cs-5"/><circle cx="520" cy="130" r="4" className="const-star cs-6"/><circle cx="80" cy="200" r="4" className="const-star cs-7"/><circle cx="200" cy="250" r="3" className="const-star cs-8"/><circle cx="400" cy="220" r="4" className="const-star cs-9"/><circle cx="550" cy="280" r="3" className="const-star cs-10"/><circle cx="150" cy="380" r="5" className="const-star cs-11"/><circle cx="300" cy="400" r="3" className="const-star cs-12"/><circle cx="480" cy="420" r="4" className="const-star cs-13"/>
       <line x1="100" y1="80" x2="180" y2="120" className="const-line cl-1"/><line x1="180" y1="120" x2="250" y2="60" className="const-line cl-2"/><line x1="250" y1="60" x2="350" y2="100" className="const-line cl-3"/><line x1="350" y1="100" x2="450" y2="70" className="const-line cl-4"/><line x1="450" y1="70" x2="520" y2="130" className="const-line cl-5"/><line x1="80" y1="200" x2="200" y2="250" className="const-line cl-6"/><line x1="200" y1="250" x2="400" y2="220" className="const-line cl-7"/><line x1="400" y1="220" x2="550" y2="280" className="const-line cl-8"/><line x1="150" y1="380" x2="300" y2="400" className="const-line cl-9"/><line x1="300" y1="400" x2="480" y2="420" className="const-line cl-10"/><line x1="180" y1="120" x2="80" y2="200" className="const-line cl-11"/><line x1="350" y1="100" x2="400" y2="220" className="const-line cl-12"/><line x1="200" y1="250" x2="150" y2="380" className="const-line cl-13"/>
-      <circle r="2.5" fill="#fbbf24" opacity="0.9" className="travel-particle">
-        <animateMotion dur="8s" repeatCount="indefinite" path="M100,80 L180,120 L250,60 L350,100 L450,70 L520,130 L400,220 L200,250 L80,200 L100,80"/>
-      </circle>
+      <circle r="2.5" fill="#fbbf24" opacity="0.9" className="travel-particle"><animateMotion dur="8s" repeatCount="indefinite" path="M100,80 L180,120 L250,60 L350,100 L450,70 L520,130 L400,220 L200,250 L80,200 L100,80"/></circle>
     </svg>
-
     <svg className="shape-layer dot-grid" viewBox="0 0 400 400">
-      {[...Array(8)].map((_, row) => (
-        [...Array(8)].map((_, col) => (
-          <circle key={`grid-${row}-${col}`} cx={25 + col * 50} cy={25 + row * 50} r="2" className={`grid-dot gd-${(row + col) % 4}`}/>
-        ))
-      ))}
+      {[...Array(8)].map((_, row) => ([...Array(8)].map((_, col) => (<circle key={`grid-${row}-${col}`} cx={25 + col * 50} cy={25 + row * 50} r="2" className={`grid-dot gd-${(row + col) % 4}`}/>))))}
     </svg>
-
     <div className="particle-container">
-      {[...Array(15)].map((_, i) => (
-        <div key={`particle-${i}`} className={`floating-particle-div fp-div-${i % 5}`}
-          style={{ left: `${5 + Math.random() * 90}%`, top: `${5 + Math.random() * 90}%`, animationDelay: `${Math.random() * 5}s`, animationDuration: `${10 + Math.random() * 15}s` }}/>
-      ))}
+      {[...Array(15)].map((_, i) => (<div key={`particle-${i}`} className={`floating-particle-div fp-div-${i % 5}`} style={{ left: `${5 + Math.random() * 90}%`, top: `${5 + Math.random() * 90}%`, animationDelay: `${Math.random() * 5}s`, animationDuration: `${10 + Math.random() * 15}s` }}/>))}
     </div>
-
     <svg className="shape-layer cube-wireframe" viewBox="0 0 200 200">
       <rect x="50" y="50" width="60" height="60" className="cube-face cf-front"/><rect x="70" y="30" width="60" height="60" className="cube-face cf-back"/>
       <line x1="50" y1="50" x2="70" y2="30" className="cube-edge"/><line x1="110" y1="50" x2="130" y2="30" className="cube-edge"/><line x1="50" y1="110" x2="70" y2="90" className="cube-edge"/><line x1="110" y1="110" x2="130" y2="90" className="cube-edge"/>
     </svg>
-
     <svg className="shape-layer spiral-shape" viewBox="0 0 200 200">
       <path className="spiral-path" fill="none" d="M100,100 C100,90 110,90 110,100 C110,115 95,115 95,100 C95,80 120,80 120,100 C120,125 85,125 85,100 C85,70 130,70 130,100 C130,135 75,135 75,100 C75,60 140,60 140,100"/>
       <circle r="3" className="spiral-dot"><animateMotion dur="8s" repeatCount="indefinite" path="M100,100 C100,90 110,90 110,100 C110,115 95,115 95,100 C95,80 120,80 120,100 C120,125 85,125 85,100 C85,70 130,70 130,100 C130,135 75,135 75,100 C75,60 140,60 140,100"/></circle>
     </svg>
-
     <svg className="shape-layer dna-helix" viewBox="0 0 100 400">
-      {[...Array(10)].map((_, i) => {
-        const y = 20 + i * 40; const offset = Math.sin(i * 0.8) * 30;
-        return (<g key={`dna-${i}`} className={`dna-pair dp-${i}`}><circle cx={50 + offset} cy={y} r="5" className="dna-node dn-left"/><circle cx={50 - offset} cy={y} r="5" className="dna-node dn-right"/><line x1={50 + offset} y1={y} x2={50 - offset} y2={y} className="dna-link"/></g>);
-      })}
+      {[...Array(10)].map((_, i) => { const y = 20 + i * 40; const offset = Math.sin(i * 0.8) * 30; return (<g key={`dna-${i}`} className={`dna-pair dp-${i}`}><circle cx={50 + offset} cy={y} r="5" className="dna-node dn-left"/><circle cx={50 - offset} cy={y} r="5" className="dna-node dn-right"/><line x1={50 + offset} y1={y} x2={50 - offset} y2={y} className="dna-link"/></g>); })}
     </svg>
-
     <svg className="shape-layer infinity-shape" viewBox="0 0 300 150">
       <path className="infinity-path" d="M75,75 C75,30 25,30 25,75 C25,120 75,120 75,75 C75,30 125,30 125,75 C125,120 75,120 75,75" transform="translate(75,0) scale(1.2)"/>
       <circle r="4" className="infinity-dot"><animateMotion dur="5s" repeatCount="indefinite" path="M75,75 C75,30 25,30 25,75 C25,120 75,120 75,75 C75,30 125,30 125,75 C125,120 75,120 75,75"/></circle>
@@ -326,23 +182,13 @@ const AnimatedShapes = () => (
 /* ================= FOOTER LINK ================= */
 const FooterLink = ({ children, sectionId, delay = 0 }) => {
   const [ref, isVisible] = useScrollAnimation();
-  return (
-    <a href={`#${sectionId}`} onClick={(e) => scrollToSection(e, sectionId)} className={`footer-link pop-animate pop-left ${isVisible ? 'is-visible' : ''}`} ref={ref} style={{ transitionDelay: `${delay}ms` }}>
-      <span className="link-text">{children}</span>
-      <span className="link-arrow"><Icons.ArrowRight /></span>
-    </a>
-  );
+  return (<a href={`#${sectionId}`} onClick={(e) => scrollToSection(e, sectionId)} className={`footer-link pop-animate pop-left ${isVisible ? 'is-visible' : ''}`} ref={ref} style={{ transitionDelay: `${delay}ms` }}><span className="link-text">{children}</span><span className="link-arrow"><Icons.ArrowRight /></span></a>);
 };
 
 /* ================= SOCIAL LINK ================= */
 const SocialLink = ({ icon: Icon, label, href = "#", delay = 0 }) => {
   const [ref, isVisible] = useScrollAnimation();
-  return (
-    <a href={href} className={`social-link pop-animate pop-scale ${isVisible ? 'is-visible' : ''}`} aria-label={label} target="_blank" rel="noopener noreferrer" ref={ref} style={{ transitionDelay: `${delay}ms` }}>
-      <span className="social-icon"><Icon /></span>
-      <span className="social-label">{label}</span>
-    </a>
-  );
+  return (<a href={href} className={`social-link pop-animate pop-scale ${isVisible ? 'is-visible' : ''}`} aria-label={label} target="_blank" rel="noopener noreferrer" ref={ref} style={{ transitionDelay: `${delay}ms` }}><span className="social-icon"><Icon /></span><span className="social-label">{label}</span></a>);
 };
 
 /* ================= NEWSLETTER FORM ================= */
@@ -351,16 +197,13 @@ const NewsletterForm = () => {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
   const validateEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) { setStatus("error"); setMessage("Please enter a valid email"); return; }
-    setStatus("loading");
-    await new Promise((r) => setTimeout(r, 1500));
+    setStatus("loading"); await new Promise((r) => setTimeout(r, 1500));
     setStatus("success"); setMessage("Welcome aboard!"); setEmail("");
     setTimeout(() => { setStatus("idle"); setMessage(""); }, 4000);
   }, [email]);
-
   return (
     <form onSubmit={handleSubmit} className="newsletter-form">
       <PopItem delay={0} type="pop-up"><p className="newsletter-text">Join our newsletter for insights on design, branding, and digital innovation.</p></PopItem>
@@ -386,70 +229,62 @@ const NewsletterForm = () => {
 const ParallaxMountains = () => {
   const containerRef = useRef(null);
   const layersRef = useRef([]);
-  const rafRef = useRef(null);
 
   useEffect(() => {
-    const speeds = [0.02, 0.04, 0.07, 0.11, 0.16];
+    const startOffsets = [80, 160, 280, 420, 600];
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
-    const handleScroll = () => {
-      if (rafRef.current) return;
-      rafRef.current = requestAnimationFrame(() => {
-        if (containerRef.current) {
-          const rect = containerRef.current.getBoundingClientRect();
-          const windowH = window.innerHeight;
-          if (rect.top < windowH && rect.bottom > 0) {
-            const rawProgress = windowH - rect.top;
-            layersRef.current.forEach((layer, i) => {
-              if (layer) {
-                const offset = rawProgress * speeds[i];
-                layer.style.transform = `translate3d(0, ${-offset}px, 0)`;
-              }
-            });
-          }
+    const update = () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const rect = container.getBoundingClientRect();
+      const windowH = window.innerHeight;
+
+      const progress = Math.max(0, Math.min(1, (windowH - rect.top) / windowH));
+      const eased = easeOutCubic(progress);
+
+      for (let i = 0; i < layersRef.current.length; i++) {
+        const layer = layersRef.current[i];
+        if (layer) {
+          const offset = startOffsets[i] * (1 - eased);
+          layer.style.transform = `translate3d(0,${offset}px,0)`;
         }
-        rafRef.current = null;
-      });
+      }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
     };
   }, []);
 
   return (
     <div className="parallax-mountains" ref={containerRef} aria-hidden="true">
-      {/* Layer 1 – farthest, lightest */}
       <div className="mtn-layer mtn-l1" ref={el => layersRef.current[0] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
           <path d="M0 600 L0 250 C100 220 200 280 350 230 C500 180 650 250 800 220 C950 190 1100 240 1250 210 C1350 190 1400 230 1440 240 L1440 600Z" fill="#2d1f4e"/>
         </svg>
       </div>
-
-      {/* Layer 2 */}
       <div className="mtn-layer mtn-l2" ref={el => layersRef.current[1] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
           <path d="M0 600 L0 300 C140 320 280 240 420 180 C560 120 700 200 840 260 C980 310 1120 260 1300 240 Q1400 260 1440 300 L1440 600Z" fill="#241942"/>
         </svg>
       </div>
-
-      {/* Layer 3 */}
       <div className="mtn-layer mtn-l3" ref={el => layersRef.current[2] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
           <path d="M0 600 L0 340 C200 360 380 280 560 220 C740 160 920 240 1100 280 C1280 320 1380 290 1440 320 L1440 600Z" fill="#1b1236"/>
         </svg>
       </div>
-
-      {/* Layer 4 */}
       <div className="mtn-layer mtn-l4" ref={el => layersRef.current[3] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
           <path d="M0 600 L0 380 C250 400 500 340 750 280 C1000 220 1250 300 1440 320 L1440 600Z" fill="#130d2a"/>
         </svg>
       </div>
-
-      {/* Layer 5 – closest, darkest */}
       <div className="mtn-layer mtn-l5" ref={el => layersRef.current[4] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
           <path d="M0 600 L0 420 C300 450 650 400 1000 370 C1300 350 1400 400 1440 410 L1440 600Z" fill="#0d0820"/>
@@ -462,14 +297,12 @@ const ParallaxMountains = () => {
 /* ================= FOOTER ================= */
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
   const navSections = [
     { label: "Services", sectionId: "services" },
     { label: "Work", sectionId: "work" },
     { label: "Method", sectionId: "method" },
     { label: "About", sectionId: "about" },
   ];
-
   const socialLinks = [
     { icon: Icons.Instagram, label: "Instagram", href: "https://instagram.com" },
     { icon: Icons.Twitter, label: "X (Twitter)", href: "https://x.com" },
@@ -482,54 +315,30 @@ const Footer = () => {
       <InteractiveGradients />
       <AnimatedShapes />
       <ParallaxMountains />
-
       <div className="footer-content">
         <div className="footer-grid">
           <div className="footer-brand">
-            <PopItem delay={0} type="pop-scale">
-              <a href="/" className="brand-logo" aria-label="ThoughtShop Home">
-                <span className="logo-text">ThoughtShop</span><span className="logo-dot">.</span>
-              </a>
-            </PopItem>
-            <PopItem delay={20} type="pop-up">
-              <p className="brand-tagline">Crafting digital experiences that resonate, inspire, and transform brands into icons.</p>
-            </PopItem>
+            <PopItem delay={0} type="pop-scale"><a href="/" className="brand-logo" aria-label="ThoughtShop Home"><span className="logo-text">ThoughtShop</span><span className="logo-dot">.</span></a></PopItem>
+            <PopItem delay={20} type="pop-up"><p className="brand-tagline">Crafting digital experiences that resonate, inspire, and transform brands into icons.</p></PopItem>
           </div>
-
           <nav className="footer-nav" aria-label="Footer navigation">
             <PopItem delay={0} type="pop-down"><h3 className="footer-title">Navigate</h3></PopItem>
-            <ul className="footer-links">
-              {navSections.map((section, i) => (
-                <li key={section.label}><FooterLink sectionId={section.sectionId} delay={i * 15}>{section.label}</FooterLink></li>
-              ))}
-            </ul>
+            <ul className="footer-links">{navSections.map((section, i) => (<li key={section.label}><FooterLink sectionId={section.sectionId} delay={i * 15}>{section.label}</FooterLink></li>))}</ul>
           </nav>
-
           <div className="footer-social">
             <PopItem delay={0} type="pop-down"><h3 className="footer-title">Connect</h3></PopItem>
-            <div className="social-links">
-              {socialLinks.map((s, i) => (<SocialLink key={s.label} {...s} delay={i * 20} />))}
-            </div>
-            <PopItem delay={60} type="pop-up" className="contact-info">
-              <a href="mailto:hello@thoughtshop.com" className="contact-email">hello@thoughtshop.com</a>
-              <p className="contact-location">San Francisco, CA</p>
-            </PopItem>
+            <div className="social-links">{socialLinks.map((s, i) => (<SocialLink key={s.label} {...s} delay={i * 20} />))}</div>
+            <PopItem delay={60} type="pop-up" className="contact-info"><a href="mailto:hello@thoughtshop.com" className="contact-email">hello@thoughtshop.com</a><p className="contact-location">San Francisco, CA</p></PopItem>
           </div>
-
           <div className="footer-newsletter">
             <PopItem delay={0} type="pop-down"><h3 className="footer-title">Newsletter</h3></PopItem>
             <NewsletterForm />
           </div>
         </div>
-
         <PopItem delay={50} type="pop-up" className="footer-bottom">
           <p className="copyright">© {currentYear} ThoughtShop. All rights reserved.</p>
-          <nav className="legal-links" aria-label="Legal">
-            <a href="/privacy">Privacy Policy</a><span className="sep">·</span><a href="/terms">Terms of Service</a>
-          </nav>
-          <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-          </button>
+          <nav className="legal-links" aria-label="Legal"><a href="/privacy">Privacy Policy</a><span className="sep">·</span><a href="/terms">Terms of Service</a></nav>
+          <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
         </PopItem>
       </div>
 
@@ -711,29 +520,18 @@ const Footer = () => {
 
         .parallax-mountains{
           position:absolute;
-          bottom:0;
-          left:0;
-          right:0;
+          bottom:0;left:0;right:0;
           height:85%;
           z-index:10;
           pointer-events:none;
           overflow:hidden;
         }
-
         .mtn-layer{
           position:absolute;
-          bottom:0;
-          left:0;
-          right:0;
+          bottom:0;left:0;right:0;
           will-change:transform;
         }
-
-        .mtn-svg{
-          display:block;
-          width:100%;
-          height:100%;
-        }
-
+        .mtn-svg{display:block;width:100%;height:100%}
         .mtn-l1{z-index:1;height:100%}
         .mtn-l2{z-index:2;height:90%}
         .mtn-l3{z-index:3;height:78%}
