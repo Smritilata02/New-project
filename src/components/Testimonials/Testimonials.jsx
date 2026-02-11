@@ -3,6 +3,7 @@ import "./Testimonials.css"
 
 export default function Testimonials() {
   const [page, setPage] = useState(0)
+  const [direction, setDirection] = useState("right")
 
   const cursorRef = useRef(null)
   const mouse = useRef({ x: 0, y: 0 })
@@ -48,7 +49,6 @@ export default function Testimonials() {
   ]
 
   const totalPages = Math.ceil(testimonials.length / 2)
-
   const visibleItems = testimonials.slice(page * 2, page * 2 + 2)
 
   // 🔵 Cursor animation
@@ -76,9 +76,32 @@ export default function Testimonials() {
     return () => window.removeEventListener("mousemove", move)
   }, [])
 
+  // 🔁 Toggle Slide Logic
+  const handleSlide = () => {
+    if (direction === "right") {
+      if (page < totalPages - 1) {
+        setPage(page + 1)
+      } else {
+        setDirection("left")
+        setPage(page - 1)
+      }
+    } else {
+      if (page > 0) {
+        setPage(page - 1)
+      } else {
+        setDirection("right")
+        setPage(page + 1)
+      }
+    }
+  }
+
   return (
-    <section className="testimonials-section">
-      <h2 className="testimonials-title">PRAISE FROM CLIEN<img src="src/assets/T.png" alt="T" className="logo-t" />S</h2>
+    <section className="testimonials-section" onClick={handleSlide}>
+      <h2 className="testimonials-title">
+        PRAISE FROM CLIEN
+        <img src="src/assets/T.png" alt="T" className="logo-t" />
+        S
+      </h2>
 
       <div className="testimonials-stage">
         {visibleItems.map((item, i) => (
@@ -92,27 +115,10 @@ export default function Testimonials() {
         ))}
       </div>
 
-      {/* ⬅️➡️ Arrows */}
-      {page > 0 && (
-        <button
-          className="arrow left"
-          onClick={() => setPage(page - 1)}
-        >
-          ←
-        </button>
-      )}
-
-      {page < totalPages - 1 && (
-        <button
-          className="arrow right"
-          onClick={() => setPage(page + 1)}
-        >
-          →
-        </button>
-      )}
-
-      {/* ⚪ Hover Cursor */}
-      <div ref={cursorRef} className="testimonial-cursor">→</div>
+      {/* Floating Cursor */}
+      <div ref={cursorRef} className="testimonial-cursor">
+        {direction === "right" ? "→" : "←"}
+      </div>
     </section>
   )
 }
