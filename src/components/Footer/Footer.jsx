@@ -225,7 +225,7 @@ const NewsletterForm = () => {
   );
 };
 
-/* ================= PARALLAX PURPLE MOUNTAINS ================= */
+/* ================= PARALLAX YELLOW MOUNTAINS ================= */
 const ParallaxMountains = () => {
   const containerRef = useRef(null);
   const layersRef = useRef([]);
@@ -267,27 +267,27 @@ const ParallaxMountains = () => {
     <div className="parallax-mountains" ref={containerRef} aria-hidden="true">
       <div className="mtn-layer mtn-l1" ref={el => layersRef.current[0] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
-          <path d="M0 600 L0 250 C100 220 200 280 350 230 C500 180 650 250 800 220 C950 190 1100 240 1250 210 C1350 190 1400 230 1440 240 L1440 600Z" fill="#2d1f4e"/>
+          <path d="M0 600 L0 250 C100 220 200 280 350 230 C500 180 650 250 800 220 C950 190 1100 240 1250 210 C1350 190 1400 230 1440 240 L1440 600Z" fill="#7a5c10"/>
         </svg>
       </div>
       <div className="mtn-layer mtn-l2" ref={el => layersRef.current[1] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
-          <path d="M0 600 L0 300 C140 320 280 240 420 180 C560 120 700 200 840 260 C980 310 1120 260 1300 240 Q1400 260 1440 300 L1440 600Z" fill="#241942"/>
+          <path d="M0 600 L0 300 C140 320 280 240 420 180 C560 120 700 200 840 260 C980 310 1120 260 1300 240 Q1400 260 1440 300 L1440 600Z" fill="#614a0d"/>
         </svg>
       </div>
       <div className="mtn-layer mtn-l3" ref={el => layersRef.current[2] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
-          <path d="M0 600 L0 340 C200 360 380 280 560 220 C740 160 920 240 1100 280 C1280 320 1380 290 1440 320 L1440 600Z" fill="#1b1236"/>
+          <path d="M0 600 L0 340 C200 360 380 280 560 220 C740 160 920 240 1100 280 C1280 320 1380 290 1440 320 L1440 600Z" fill="#4a380a"/>
         </svg>
       </div>
       <div className="mtn-layer mtn-l4" ref={el => layersRef.current[3] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
-          <path d="M0 600 L0 380 C250 400 500 340 750 280 C1000 220 1250 300 1440 320 L1440 600Z" fill="#130d2a"/>
+          <path d="M0 600 L0 380 C250 400 500 340 750 280 C1000 220 1250 300 1440 320 L1440 600Z" fill="#332707"/>
         </svg>
       </div>
       <div className="mtn-layer mtn-l5" ref={el => layersRef.current[4] = el}>
         <svg viewBox="0 0 1440 600" preserveAspectRatio="none" className="mtn-svg">
-          <path d="M0 600 L0 420 C300 450 650 400 1000 370 C1300 350 1400 400 1440 410 L1440 600Z" fill="#0d0820"/>
+          <path d="M0 600 L0 420 C300 450 650 400 1000 370 C1300 350 1400 400 1440 410 L1440 600Z" fill="#1f1804"/>
         </svg>
       </div>
     </div>
@@ -478,43 +478,44 @@ const Footer = () => {
         .footer-title{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#e2e8f0;margin-bottom:28px;font-weight:600;opacity:0.6}
         .footer-links{display:flex;flex-direction:column;gap:16px;list-style:none;padding:0;margin:0}
         .footer-link{display:inline-flex;align-items:center;gap:10px;color:#e2e8f0;font-size:17px;transition:all .2s;opacity:0.8;text-decoration:none;cursor:pointer}
-        .footer-link:hover{opacity:1;color:#fbbf24}
+        .footer-link:hover{opacity:1;color:#fbbf24;text-shadow:0 0 12px rgba(251,191,36,0.5)}
         .link-arrow{opacity:0;transform:translateX(-8px);transition:all .2s}
         .footer-link:hover .link-arrow{opacity:1;transform:translateX(0);color:#fbbf24}
         .social-links{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
         .social-link{display:inline-flex;align-items:center;gap:14px;color:#e2e8f0;font-size:17px;transition:all .2s;opacity:0.8;text-decoration:none}
-        .social-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;transition:all .2s;color:#e2e8f0}
-        .social-link:hover{opacity:1}
-        .social-link:hover .social-icon{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);transform:translateY(-2px)}
+        .social-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;transition:all .25s;color:#e2e8f0}
+        .social-link:hover{opacity:1;color:#fbbf24}
+        .social-link:hover .social-icon{background:rgba(251,191,36,.25);border-color:rgba(251,191,36,.6);transform:translateY(-2px);box-shadow:0 0 20px rgba(251,191,36,0.35),0 0 40px rgba(251,191,36,0.15);color:#fbbf24}
+        .social-link:hover .social-label{color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,0.4)}
         .contact-info{margin-top:10px}
-        .contact-email{display:block;color:#fbbf24;font-size:17px;margin-bottom:8px;transition:color .2s;text-decoration:none}
-        .contact-email:hover{color:#f59e0b}
+        .contact-email{display:block;color:#fbbf24;font-size:17px;margin-bottom:8px;transition:all .2s;text-decoration:none}
+        .contact-email:hover{color:#fde68a;text-shadow:0 0 15px rgba(251,191,36,0.5)}
         .contact-location{color:#e2e8f0;font-size:16px;opacity:0.7;margin:0}
         .newsletter-form{max-width:100%}
         .newsletter-text{color:#e2e8f0;font-size:16px;line-height:1.7;margin-bottom:24px;opacity:0.8}
         .input-wrapper{display:flex;flex-direction:column;gap:14px}
         .newsletter-input{width:100%;padding:18px 20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;color:#fff;font-size:17px;transition:all .2s}
-        .newsletter-input:focus{outline:none;border-color:rgba(251,191,36,.5);background:rgba(255,255,255,.08);box-shadow:0 0 0 4px rgba(251,191,36,.08)}
+        .newsletter-input:focus{outline:none;border-color:rgba(251,191,36,.6);background:rgba(255,255,255,.08);box-shadow:0 0 0 4px rgba(251,191,36,.12),0 0 20px rgba(251,191,36,0.1)}
         .newsletter-input::placeholder{color:rgba(255,255,255,0.3)}
         .newsletter-input.input-error{border-color:#ef4444}.newsletter-input.input-success{border-color:#10b981}
         .newsletter-input:disabled{opacity:.5;cursor:not-allowed}
-        .newsletter-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:18px 28px;background:#fff;color:#000;font-weight:600;font-size:17px;border-radius:14px;border:none;cursor:pointer;transition:all .2s}
+        .newsletter-btn{display:flex;align-items:center;justify-content:center;width:100%;padding:18px 28px;background:#fbbf24;color:#000;font-weight:700;font-size:17px;border-radius:14px;border:none;cursor:pointer;transition:all .25s}
         .btn-content{display:flex;align-items:center;gap:10px}
-        .newsletter-btn:hover:not(:disabled){background:#fbbf24;transform:translateY(-2px);box-shadow:0 4px 20px rgba(251,191,36,.25)}
+        .newsletter-btn:hover:not(:disabled){background:#fde68a;transform:translateY(-2px);box-shadow:0 4px 25px rgba(251,191,36,.4),0 0 40px rgba(251,191,36,0.2)}
         .newsletter-btn:disabled{cursor:not-allowed}
         .newsletter-btn.loading{background:#1f2937;color:#fff}.newsletter-btn.success{background:#10b981;color:#fff}.newsletter-btn.error{background:#ef4444;color:#fff}
         .newsletter-message{margin-top:14px;font-size:15px;padding:12px 16px;border-radius:10px;animation:fadeIn .2s}
         .newsletter-message.success{background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)}
         .newsletter-message.error{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2)}
         @keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
-        .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:60px;margin-top:80px;border-top:1px solid rgba(255,255,255,.08)}
+        .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:60px;margin-top:80px;border-top:1px solid rgba(251,191,36,.12)}
         @media(max-width:768px){.footer-bottom{flex-direction:column;gap:24px;text-align:center}}
         .copyright{color:#e2e8f0;font-size:16px;opacity:0.5;margin:0}
         .legal-links{display:flex;align-items:center;gap:10px;color:#e2e8f0;font-size:16px}
-        .legal-links a{transition:opacity .2s;opacity:0.5;color:#e2e8f0;text-decoration:none}.legal-links a:hover{opacity:1}
+        .legal-links a{transition:all .2s;opacity:0.5;color:#e2e8f0;text-decoration:none}.legal-links a:hover{opacity:1;color:#fbbf24;text-shadow:0 0 10px rgba(251,191,36,0.3)}
         .sep{color:rgba(255,255,255,0.15)}
-        .back-to-top{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e2e8f0;cursor:pointer;transition:all .2s}
-        .back-to-top:hover{background:rgba(251,191,36,.15);border-color:rgba(251,191,36,.4);color:#fbbf24;transform:translateY(-3px)}
+        .back-to-top{display:flex;align-items:center;justify-content:center;width:48px;height:48px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;color:#e2e8f0;cursor:pointer;transition:all .25s}
+        .back-to-top:hover{background:rgba(251,191,36,.25);border-color:rgba(251,191,36,.6);color:#fbbf24;transform:translateY(-3px);box-shadow:0 0 20px rgba(251,191,36,0.35),0 0 40px rgba(251,191,36,0.15)}
         .animate-spin{animation:spin 1s linear infinite}
         @keyframes spin{to{transform:rotate(360deg)}}
 
