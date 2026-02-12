@@ -225,41 +225,78 @@ const NewsletterForm = () => {
   );
 };
 
-/* ================= PARALLAX YELLOW MOUNTAINS ================= */
+/* ================= PARALLAX YELLOW MOUNTAINS (SMOOTH RAF LERP) ================= */
 const ParallaxMountains = () => {
   const containerRef = useRef(null);
   const layersRef = useRef([]);
+  const currentOffsetsRef = useRef([0, 0, 0, 0, 0]);
+  const targetOffsetsRef = useRef([0, 0, 0, 0, 0]);
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    const startOffsets = [80, 160, 280, 420, 600];
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const maxOffsets = [80, 160, 280, 420, 600];
+    const lerpFactors = [0.04, 0.035, 0.03, 0.025, 0.02];
+    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
 
-    const update = () => {
+    const computeTargets = () => {
       const container = containerRef.current;
       if (!container) return;
-
       const rect = container.getBoundingClientRect();
       const windowH = window.innerHeight;
+      const totalTravel = windowH + rect.height;
+      const scrolled = windowH - rect.top;
+      const raw = Math.max(0, Math.min(1, scrolled / totalTravel));
+      const eased = easeOutQuart(raw);
 
-      const progress = Math.max(0, Math.min(1, (windowH - rect.top) / windowH));
-      const eased = easeOutCubic(progress);
-
-      for (let i = 0; i < layersRef.current.length; i++) {
-        const layer = layersRef.current[i];
-        if (layer) {
-          const offset = startOffsets[i] * (1 - eased);
-          layer.style.transform = `translate3d(0,${offset}px,0)`;
-        }
+      for (let i = 0; i < 5; i++) {
+        targetOffsetsRef.current[i] = maxOffsets[i] * (1 - eased);
       }
     };
 
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
-    update();
+    const animate = () => {
+      let needsUpdate = false;
+      for (let i = 0; i < 5; i++) {
+        const current = currentOffsetsRef.current[i];
+        const target = targetOffsetsRef.current[i];
+        const diff = target - current;
+
+        if (Math.abs(diff) > 0.05) {
+          currentOffsetsRef.current[i] = current + diff * lerpFactors[i];
+          needsUpdate = true;
+        } else if (current !== target) {
+          currentOffsetsRef.current[i] = target;
+          needsUpdate = true;
+        }
+
+        const layer = layersRef.current[i];
+        if (layer) {
+          layer.style.transform = `translate3d(0,${currentOffsetsRef.current[i]}px,0)`;
+        }
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    const onScroll = () => {
+      computeTargets();
+    };
+
+    // Initialize
+    for (let i = 0; i < 5; i++) {
+      currentOffsetsRef.current[i] = maxOffsets[i];
+      targetOffsetsRef.current[i] = maxOffsets[i];
+    }
+
+    computeTargets();
+    rafRef.current = requestAnimationFrame(animate);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
